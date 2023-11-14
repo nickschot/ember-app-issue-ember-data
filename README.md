@@ -1,3 +1,20 @@
+# Reproduction
+
+```sh
+pnpx ember new ember-app-issue-ember-data --embroider --skip-npm
+cd ember-app-issue-ember-data
+pnpm i
+pnpm i -D ember-data@4.11.3
+pnpm i -D ember-auto-import@latest
+ember g controller application
+```
+
+Add this to `app/controllers/application.js`:
+
+```js
+import '@ember-data/store';
+```
+
 # Error
 
     ❯ ember s
