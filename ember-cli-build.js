@@ -13,6 +13,20 @@ module.exports = function (defaults) {
         },
       },
     },
+
+    'ember-cli-babel': {
+      includeExternalHelpers: true,
+      throwUnlessParallelizable: true,
+    },
+
+    babel: {
+      plugins: [require.resolve('ember-auto-import/babel-plugin')],
+    },
+
+    sourcemaps: {
+      enabled: true,
+      extensions: ['js'],
+    },
   });
 
   // Use `app.import` to add additional libraries to the generated
@@ -37,5 +51,21 @@ module.exports = function (defaults) {
         package: 'qunit',
       },
     ],
+    packagerOptions: {
+      webpackConfig: {
+        devtool:
+          EmberApp.env() === 'production' ? 'source-map' : 'eval-source-map',
+
+        plugins: [],
+        output: {
+          filename: `assets/chunk.[contenthash].js`,
+          chunkFilename: `assets/chunk.[name].[contenthash].js`,
+        },
+
+        optimization: {
+          splitChunks: { chunks: 'all', maxSize: 5e6 },
+        },
+      },
+    },
   });
 };
